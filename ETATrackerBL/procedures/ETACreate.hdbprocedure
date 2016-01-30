@@ -1,0 +1,82 @@
+PROCEDURE "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETACreate" (
+	IN intab "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHeader",	
+	OUT outtab "_SYS_BIC"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models::data.procedures.errors"
+ ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER AS
+	--DEFAULT SCHEMA <default_schema_name>
+	--READS SQL DATA AS
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+ 
+ 	/* Upsert the data into ETA HEADER Table*/
+ 	upsert "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHeader"
+ 		select * from :intab ;
+
+ 	etaHistory = select a."INCIDENTNO", MAX(b."HISTORYNO") as "HISTORYNO"
+ 					from  :intab as a
+ 					left outer join "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory" as b
+ 					on a."INCIDENTNO" = b."INCIDENTNO"
+ 					group by a."INCIDENTNO";
+ 		
+ 	/* Logic to insert the new entries in History table*/
+ 	etaInsertNewHistory = select b."INCIDENTNO", 1 as "HISTORYNO", b."STATUS", NOW() AS "ETACREATIONDATE", NOW() AS "ETAUPDATIONDATE",
+ 								 CURRENT_USER AS "ETACREATEDBY", CURRENT_USER AS "ETAUPDATEDBY"
+ 							from :etaHistory as a
+ 							inner join :intab as b
+ 							on a."INCIDENTNO" = b."INCIDENTNO"
+ 						   where a."HISTORYNO" is null;	
+ 					
+ 	if ::ROWCOUNT is not null
+ 	then
+ 	insert into "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory" 
+ 				("INCIDENTNO","HISTORYNO","STATUS", "ETACREATIONDATE", "ETAUPDATIONDATE", "ETACREATEDBY", "ETAUPDATEDBY")
+ 		select * from :etaInsertNewHistory;
+ 	end if;
+ 					
+ 	etaHistory1 = select a."INCIDENTNO", a."HISTORYNO", b."ETACREATIONDATE" 
+ 					from  :etaHistory as a
+ 					inner join "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory" as b
+ 					on a."INCIDENTNO" = b."INCIDENTNO"
+ 					and a."HISTORYNO" = b."HISTORYNO";
+ 					
+ 	
+  	
+ 	
+ 	/*Logic to Add another history record*/
+ 	etaAddHistory = select a."INCIDENTNO", a."HISTORYNO" + 1 as "HISTORYNO", b."STATUS", NOW() AS "ETACREATIONDATE", NOW() AS "ETAUPDATIONDATE",
+ 								 CURRENT_USER AS "ETACREATEDBY", CURRENT_USER AS "ETAUPDATEDBY"
+ 						from :etaHistory1 as a
+ 						INNER JOIN :intab as b
+ 						on a."INCIDENTNO" = b."INCIDENTNO"
+ 						where a.ETACREATIONDATE not between TO_DATE(NOW()) and NOW();
+ 	if ::ROWCOUNT is not null
+ 	then
+ 	INSERT INTO "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory"
+ 			("INCIDENTNO","HISTORYNO","STATUS", "ETACREATIONDATE", "ETAUPDATIONDATE", "ETACREATEDBY", "ETAUPDATEDBY")
+ 		select * from :etaAddHistory ;
+ 	end if;
+ 	
+ 	/*Logic to update history record*/
+ 	etaAddHistory = select a."INCIDENTNO", a."HISTORYNO" as "HISTORYNO", b."STATUS", NOW() AS "ETACREATIONDATE", NOW() AS "ETAUPDATIONDATE",
+ 								 CURRENT_USER AS "ETACREATEDBY", CURRENT_USER AS "ETAUPDATEDBY"
+ 						from "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory" as a
+ 						INNER JOIN :intab as b
+ 						on a."INCIDENTNO" = b."INCIDENTNO"
+ 						where a.ETACREATIONDATE between TO_DATE(NOW()) and NOW();
+ 	if ::ROWCOUNT is not null
+ 	then
+ 	upsert "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory"
+ 			("INCIDENTNO","HISTORYNO","STATUS", "ETACREATIONDATE", "ETAUPDATIONDATE", "ETACREATEDBY", "ETAUPDATEDBY")
+ 		select * from :etaAddHistory ;
+ 	end if;
+ 	
+ 	
+	if 1 = 2 then
+ 		outtab = select 500 as http_status_code,
+ 				'Invalid Last Name'  error_message,
+ 				'No Way! Last name field must not be empty' as detail from dummy;
+ 	end if;
+END;

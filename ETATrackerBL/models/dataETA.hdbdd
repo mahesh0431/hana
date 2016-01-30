@@ -1,0 +1,92 @@
+namespace c5208507trial.hanainstance.ETATracker.ETATrackerBL.models;
+
+@Schema : '_SYS_BIC'
+context dataETA
+
+{
+      type SString : String(40);
+      type Incident : String(10);
+      type IncidentNo: String(20);
+      type Year	: String(4);
+      
+       type dateHistory {
+            CREATIONDATE:UTCDateTime;
+            UPDATIONDATE:UTCDateTime;
+            CREATEDBY:String(40);
+            UPDATEBY:String(40);
+      };
+
+       
+      
+       entity ETAHISTORY {
+            key INCIDENT: Incident;
+            key YEAR: Year;
+            key HISTORYNO: Integer;
+            PROCESSOR: String(40);
+            COMPONENT: String(40);
+            PRIORITY: String(10);
+            STATUS:	String(30);
+            SYSTEMID: String(5);
+            DESCRIPTION: String(80);
+            CREATIONDATE:UTCDateTime;
+            MPTPLANNEDDATE:UTCDateTime;
+     	    ETACREATIONDATE:UTCDateTime;
+            ETAUPDATIONDATE:UTCDateTime;
+            ETACREATEDBY:String(40);
+            ETAUPDATEDBY:String(40);
+            TBD:String(1);
+            ETA:LocalDate;
+            NOTE:String(10);
+            USERCOMMENT:String(100);
+            ADMINCOMMENT:String(100);
+            ETADAY:String(1);
+      };
+      
+      context procedures{
+      	type ETAHistory{
+      		INCIDENT: Incident;
+            YEAR: Year;
+            HISTORYNO: Integer;
+            PROCESSOR: String(40);
+            COMPONENET: String(40);
+            PRIORITY: String(10);
+            STATUS:	String(30);
+            DESCRIPTION: String(80);
+            SYSTEMID: String(5);
+            DATE:dateHistory;
+            TBD:String(1);
+            ETA:LocalDate;
+            NOTE:String(10);
+            USERCOMMENT:String(100);
+            ADMINCOMMENT:String(100);
+      	};
+      	type errors{
+   			HTTP_STATUS_CODE	:	Integer;
+   			ERROR_MESSAGE		:	String(100);
+   			DETAIL				:	String(100);
+   		};
+   		type ETAView{
+   			INCIDENTNO			:	String(30);
+   			INCIDENT			:	String(10);
+   			YEAR				:	String(4);
+   			PROCESSOR			: 	String(40);
+            COMPONENT			: 	String(40);
+            PRIORITY			: 	String(10);
+            STATUS				:	String(30);
+            SYSTEMID			: 	String(5);
+            DESCRIPTION			: 	String(80);
+            CREATIONDATE		:	UTCDateTime;
+            NOTE				:	String(10);
+            TBD					:	String(1);
+            ADMINCOMMENT		:	String(100);
+            USERCOMMENT			:	String(500);
+             
+   		};
+   		
+   		type ETADay{
+   			INCIDENTNO			:	String(30);
+   			HISTORYNO			:	Integer;
+   			ETADAY				:   String(1);
+   		};
+      };
+};

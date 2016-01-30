@@ -1,0 +1,25 @@
+table.schemaName 	= "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8";
+table.tableType		= COLUMNSTORE;
+table.description	= "ETA History Table"; 
+
+table.columns =
+[
+	{name = "INCIDENTNO"; 		sqlType = NVARCHAR; 	nullable = false;	length = 30;},
+	{name = "HISTORYNO"; 		sqlType = INTEGER; 		nullable = false;},
+	{name = "STATUS"; 			sqlType = NVARCHAR; 	length = 30;},
+	{name = "ETACREATIONDATE"; 	sqlType = SECONDDATE; },
+	{name = "ETAUPDATIONDATE"; 	sqlType = SECONDDATE; },
+	{name = "ETACREATEDBY"; 	sqlType = NVARCHAR; 	length = 30;},
+	{name = "ETAUPDATEDBY"; 	sqlType = NVARCHAR; 	length = 30;},
+	{name = "TBD"; 				sqlType = NVARCHAR; 	length = 1;},
+	{name = "ETA"; 				sqlType = SECONDDATE; 	},
+	{name = "NOTE"; 			sqlType = NVARCHAR; 	length = 10;},
+	{name = "USERCOMMENT"; 		sqlType = NVARCHAR; 	length = 500;},
+	{name = "ADMINCOMMENT"; 	sqlType = NVARCHAR; 	length = 100;},
+	{name = "ETADAY"; 			sqlType = NVARCHAR; 	length = 1;},
+	{name = "ETADAYDATE"; 		sqlType = SECONDDATE; }
+];
+
+	
+
+table.primaryKey.pkcolumns = ["INCIDENTNO","HISTORYNO"];

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ETAData" applyPrivilegeType="NONE" checkAnalyticPrivileges="false" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="SCRIPT_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" runWithInvokerPrivileges="true" scriptParametersCaseSensitive="true">
+  <descriptions defaultDescription="ETAData"/>
+  <localVariables>
+    <variable id="ETADATE" parameter="true">
+      <descriptions defaultDescription="ETA Date"/>
+      <variableProperties datatype="SHORTTEXT" defaultValue="" length="8" mandatory="true">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="NOW" parameter="true">
+      <descriptions defaultDescription="NOW"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="" length="1" mandatory="true">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="PROJECTID" parameter="true">
+      <descriptions defaultDescription="PROJECTID"/>
+      <variableProperties datatype="NVARCHAR" length="40" mandatory="true">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultRange/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <dataSources/>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:SqlScriptView" id="Script_View">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute datatype="VARCHAR" id="INCIDENTNO" length="30"/>
+        <viewAttribute datatype="INTEGER" id="HISTORYNO"/>
+        <viewAttribute datatype="VARCHAR" id="TBD" length="1"/>
+        <viewAttribute datatype="SECONDDATE" id="ETA"/>
+        <viewAttribute datatype="VARCHAR" id="NOTE" length="10"/>
+        <viewAttribute datatype="VARCHAR" id="USERCOMMENT" length="500"/>
+        <viewAttribute datatype="VARCHAR" id="ADMINCOMMENT" length="100"/>
+        <viewAttribute datatype="VARCHAR" id="ETADAY" length="1"/>
+        <viewAttribute datatype="SECONDDATE" id="ETADAYDATE"/>
+        <viewAttribute datatype="VARCHAR" id="INCIDENT" length="10"/>
+        <viewAttribute datatype="VARCHAR" id="YEAR" length="4"/>
+        <viewAttribute datatype="VARCHAR" id="PROCESSOR" length="40"/>
+        <viewAttribute datatype="VARCHAR" id="COMPONENT" length="40"/>
+        <viewAttribute datatype="VARCHAR" id="PRIORITY" length="10"/>
+        <viewAttribute datatype="VARCHAR" id="STATUS" length="30"/>
+        <viewAttribute datatype="VARCHAR" id="SYSTEMID" length="5"/>
+        <viewAttribute datatype="VARCHAR" id="DESCRIPTION" length="80"/>
+        <viewAttribute datatype="SECONDDATE" id="CREATIONDATE"/>
+        <viewAttribute datatype="SECONDDATE" id="MPTPLANNEDDATE"/>
+        <viewAttribute datatype="VARCHAR" id="ISUSERCOMMENTSUPPLIED" length="1"/>
+        <viewAttribute datatype="VARCHAR" id="ISADMINCOMMENTSUPPLIED" length="1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <localVariable>#ETADATE</localVariable>
+      <localVariable>#NOW</localVariable>
+      <localVariable>#PROJECTID</localVariable>
+      <definition>/****** Begin Procedure Script ************/ &#xD;
+ BEGIN &#xD;
+ 	 	&#xD;
+/* 	lt_etahistory = CE_COLUMN_TABLE(&quot;_SYS_BIC&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.models::dataETA.ETAHISTORY&quot;);&#xD;
+ 	 &#xD;
+ 	lt_history = CE_AGGREGATION( :lt_etahistory, &#xD;
+ 		[MAX (&quot;HISTORYNO&quot;) as &quot;HISTORYNO&quot;], [&quot;INCIDENT&quot;,&quot;YEAR&quot;]);&#xD;
+	&#xD;
+	var_out = CE_JOIN( :lt_etahistory, :lt_history, [&quot;INCIDENT&quot;,&quot;YEAR&quot;,&quot;HISTORYNO&quot;],&#xD;
+	[&quot;INCIDENT&quot;,&quot;YEAR&quot;,&quot;HISTORYNO&quot;,&quot;PROCESSOR&quot;,&quot;PRIORITY&quot;,&quot;STATUS&quot;,&#xD;
+			&quot;TBD&quot;,&quot;ETA&quot;,&quot;NOTE&quot;,&quot;USERCOMMENT&quot;,&quot;ADMINCOMMENT&quot;,&quot;MPTPLANNEDDATE&quot;,&#xD;
+			&quot;COMPONENT&quot;,&quot;SYSTEMID&quot;,&quot;DESCRIPTION&quot;,&quot;CREATIONDATE&quot;,&#xD;
+			&quot;ETACREATIONDATE&quot;,&quot;ETAUPDATIONDATE&quot;,&quot;ETACREATEDBY&quot;,&quot;ETAUPDATEDBY&quot;,&quot;ETADAY&quot;] ); */&#xD;
+			&#xD;
+-- date12 = select :date as date1, ADD_SECONDS(ADD_DAYS(:date, 1),-01) as date2 from dummy;&#xD;
+/*&#xD;
+declare lv_date seconddate;&#xD;
+&#xD;
+lv_date := ETADATE;&#xD;
+&#xD;
+etaHistory = select *&#xD;
+			   from &quot;_SYS_BIC&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.models::dataETA.ETAHISTORY&quot;;&#xD;
+			   &#xD;
+dataHistory = select &quot;INCIDENT&quot;, &quot;YEAR&quot;, MAX(&quot;HISTORYNO&quot;) AS &quot;HISTORYNO&quot;&#xD;
+			from :etaHistory&#xD;
+		   where &quot;ETACREATIONDATE&quot; between lv_date and ADD_SECONDS(ADD_DAYS(lv_date, 1),-01)&#xD;
+		group by &quot;INCIDENT&quot;, &quot;YEAR&quot;;&#xD;
+&#xD;
+var_out = select A.&quot;INCIDENT&quot;, A.&quot;YEAR&quot;, A.&quot;HISTORYNO&quot;,B.&quot;PROCESSOR&quot;,B.&quot;PRIORITY&quot;,B.&quot;STATUS&quot;,&#xD;
+			B.&quot;TBD&quot;,B.&quot;ETA&quot;,B.&quot;NOTE&quot;,B.&quot;USERCOMMENT&quot;,B.&quot;ADMINCOMMENT&quot;,B.&quot;MPTPLANNEDDATE&quot;,&#xD;
+			B.&quot;COMPONENT&quot;,B.&quot;SYSTEMID&quot;,B.&quot;DESCRIPTION&quot;,B.&quot;CREATIONDATE&quot;,&#xD;
+			B.&quot;ETACREATIONDATE&quot;,B.&quot;ETAUPDATIONDATE&quot;,B.&quot;ETACREATEDBY&quot;,B.&quot;ETAUPDATEDBY&quot;,B.&quot;ETADAY&quot;&#xD;
+      		from :dataHistory as A&#xD;
+      	inner join :etaHistory as B&#xD;
+      		  on A.&quot;INCIDENT&quot; = B.&quot;INCIDENT&quot;&#xD;
+      		 and A.&quot;YEAR&quot; = B.&quot;YEAR&quot;&#xD;
+      		 and A.&quot;HISTORYNO&quot; = B.&quot;HISTORYNO&quot;; */&#xD;
+/**** date should contains only the data not the time as , so pass only date in&#xD;
+data input parameter***/&#xD;
+&#xD;
+declare lv_date seconddate;&#xD;
+&#xD;
+lv_date := :ETADATE;&#xD;
+&#xD;
+/*if :NOW != 'X' then&#xD;
+etaHistoryKey = select &quot;INCIDENTNO&quot;, MAX(&quot;HISTORYNO&quot;) AS &quot;HISTORYNO&quot;&#xD;
+			   from &quot;NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory&quot; &#xD;
+			  where &quot;ETADAYDATE&quot; between lv_date and ADD_SECONDS(ADD_DAYS(lv_date, 1),-01)&#xD;
+			    and &quot;ETADAY&quot; = 'X'&#xD;
+		   group by &quot;INCIDENTNO&quot;;&#xD;
+else&#xD;
+*/&#xD;
+etaHistoryKey = select &quot;INCIDENTNO&quot;, MAX(&quot;HISTORYNO&quot;) AS &quot;HISTORYNO&quot;&#xD;
+			   from &quot;NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory&quot; &#xD;
+			  where &quot;ETACREATIONDATE&quot; between lv_date and ADD_SECONDS(ADD_DAYS(lv_date, 1),-01)&#xD;
+		   group by &quot;INCIDENTNO&quot;;&#xD;
+/* &#xD;
+etaHistoryKey2 = select &quot;INCIDENTNO&quot;, MAX(&quot;HISTORYNO&quot;) AS &quot;HISTORYNO&quot;&#xD;
+			   from &quot;NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory&quot; &#xD;
+			   where &quot;ETADAY&quot; &lt;> 'X'&#xD;
+			   group by &quot;INCIDENTNO&quot;;&#xD;
+			   &#xD;
+			   &#xD;
+etaHistoryUnion = select &quot;INCIDENTNO&quot;, &quot;HISTORYNO&quot;&#xD;
+				  from :etaHistoryKey1&#xD;
+				  UNION ALL&#xD;
+				  select &quot;INCIDENTNO&quot;, &quot;HISTORYNO&quot;&#xD;
+				  from :etaHistoryKey2; &#xD;
+&#xD;
+etaHistoryKey = select &quot;INCIDENTNO&quot;, MAX(&quot;HISTORYNO&quot;) AS &quot;HISTORYNO&quot;&#xD;
+				from :etaHistoryUnion&#xD;
+				group by &quot;INCIDENTNO&quot;;			   &#xD;
+&#xD;
+end if;&#xD;
+*/&#xD;
+if ::ROWCOUNT is not null then&#xD;
+&#xD;
+	components = select &quot;COMPONENTID&quot; &#xD;
+					from &quot;NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAComponent&quot;&#xD;
+					where &quot;PROJECTID&quot; = :PROJECTID;&#xD;
+					&#xD;
+&#xD;
+					&#xD;
+	etaHistory = select a.&quot;INCIDENTNO&quot;, a.&quot;HISTORYNO&quot;, a.&quot;TBD&quot;, a.&quot;ETA&quot;,a.&quot;NOTE&quot;, a.&quot;USERCOMMENT&quot;,&#xD;
+		a.&quot;ADMINCOMMENT&quot;, a.&quot;ETADAY&quot;, a.&quot;ETADAYDATE&quot;&#xD;
+ 		from &quot;NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory&quot; as a&#xD;
+ 		INNER JOIN :etaHistoryKey as b&#xD;
+ 		on a.&quot;INCIDENTNO&quot; = b.&quot;INCIDENTNO&quot;&#xD;
+ 		and a.&quot;HISTORYNO&quot; = b.&quot;HISTORYNO&quot;;&#xD;
+ 				&#xD;
+ 	incidentsHeaders = select b.&quot;INCIDENTNO&quot;, b.&quot;INCIDENT&quot;,b.&quot;YEAR&quot;,b.&quot;PROCESSOR&quot;,b.&quot;COMPONENT&quot;,b.&quot;PRIORITY&quot;,&#xD;
+		b.&quot;STATUS&quot;,b.&quot;SYSTEMID&quot;,b.&quot;DESCRIPTION&quot;,b.&quot;CREATIONDATE&quot;,b.&quot;MPTPLANNEDDATE&quot; &#xD;
+ 						from &quot;NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHeader&quot; as b&#xD;
+ 						inner join :components as a&#xD;
+ 						on b.&quot;COMPONENT&quot; = a.&quot;COMPONENTID&quot;;			&#xD;
+ 					   &#xD;
+ 	var_out = select a.&quot;INCIDENTNO&quot;, a.&quot;HISTORYNO&quot;, a.&quot;TBD&quot;, a.&quot;ETA&quot;,a.&quot;NOTE&quot;, a.&quot;USERCOMMENT&quot;,&#xD;
+		a.&quot;ADMINCOMMENT&quot;, a.&quot;ETADAY&quot;, a.&quot;ETADAYDATE&quot;, b.&quot;INCIDENT&quot;,b.&quot;YEAR&quot;,b.&quot;PROCESSOR&quot;,b.&quot;COMPONENT&quot;,b.&quot;PRIORITY&quot;,&#xD;
+		b.&quot;STATUS&quot;,b.&quot;SYSTEMID&quot;,b.&quot;DESCRIPTION&quot;,b.&quot;CREATIONDATE&quot;,b.&quot;MPTPLANNEDDATE&quot;,&#xD;
+		CASE WHEN &quot;USERCOMMENT&quot; IS NULL THEN ' ' ELSE 'X' END AS &quot;ISUSERCOMMENTSUPPLIED&quot;,&#xD;
+		CASE WHEN &quot;ADMINCOMMENT&quot; IS NULL THEN ' ' ELSE 'X' END AS &quot;ISADMINCOMMENTSUPPLIED&quot;&#xD;
+		from :etaHistory as a&#xD;
+		inner join :incidentsHeaders as b&#xD;
+		on a.&quot;INCIDENTNO&quot; = b.&quot;INCIDENTNO&quot;;&#xD;
+end if;&#xD;
+	&#xD;
+END /********* End Procedure Script ************/&#xD;
+</definition>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Script_View">
+    <descriptions/>
+    <attributes>
+      <attribute id="INCIDENTNO" order="1">
+        <descriptions defaultDescription="INCIDENTNO"/>
+        <keyMapping columnObjectName="Script_View" columnName="INCIDENTNO"/>
+      </attribute>
+      <attribute id="TBD" order="3">
+        <descriptions defaultDescription="TBD"/>
+        <keyMapping columnObjectName="Script_View" columnName="TBD"/>
+      </attribute>
+      <attribute id="ETA" order="4">
+        <descriptions defaultDescription="ETA"/>
+        <keyMapping columnObjectName="Script_View" columnName="ETA"/>
+      </attribute>
+      <attribute id="NOTE" order="5">
+        <descriptions defaultDescription="NOTE"/>
+        <keyMapping columnObjectName="Script_View" columnName="NOTE"/>
+      </attribute>
+      <attribute id="USERCOMMENT" order="6">
+        <descriptions defaultDescription="USERCOMMENT"/>
+        <keyMapping columnObjectName="Script_View" columnName="USERCOMMENT"/>
+      </attribute>
+      <attribute id="ADMINCOMMENT" order="7">
+        <descriptions defaultDescription="ADMINCOMMENT"/>
+        <keyMapping columnObjectName="Script_View" columnName="ADMINCOMMENT"/>
+      </attribute>
+      <attribute id="ETADAY" order="8">
+        <descriptions defaultDescription="ETADAY"/>
+        <keyMapping columnObjectName="Script_View" columnName="ETADAY"/>
+      </attribute>
+      <attribute id="ETADAYDATE" order="9">
+        <descriptions defaultDescription="ETADAYDATE"/>
+        <keyMapping columnObjectName="Script_View" columnName="ETADAYDATE"/>
+      </attribute>
+      <attribute id="INCIDENT" order="10">
+        <descriptions defaultDescription="INCIDENT"/>
+        <keyMapping columnObjectName="Script_View" columnName="INCIDENT"/>
+      </attribute>
+      <attribute id="YEAR" order="11">
+        <descriptions defaultDescription="YEAR"/>
+        <keyMapping columnObjectName="Script_View" columnName="YEAR"/>
+      </attribute>
+      <attribute id="PROCESSOR" order="12">
+        <descriptions defaultDescription="PROCESSOR"/>
+        <keyMapping columnObjectName="Script_View" columnName="PROCESSOR"/>
+      </attribute>
+      <attribute id="COMPONENT" order="13">
+        <descriptions defaultDescription="COMPONENT"/>
+        <keyMapping columnObjectName="Script_View" columnName="COMPONENT"/>
+      </attribute>
+      <attribute id="PRIORITY" order="14">
+        <descriptions defaultDescription="STATUS"/>
+        <keyMapping columnObjectName="Script_View" columnName="PRIORITY"/>
+      </attribute>
+      <attribute id="STATUS" order="15">
+        <descriptions defaultDescription="STATUS"/>
+        <keyMapping columnObjectName="Script_View" columnName="STATUS"/>
+      </attribute>
+      <attribute id="SYSTEMID" order="16">
+        <descriptions defaultDescription="SYSTEMID"/>
+        <keyMapping columnObjectName="Script_View" columnName="SYSTEMID"/>
+      </attribute>
+      <attribute id="DESCRIPTION" order="17">
+        <descriptions defaultDescription="DESCRIPTION"/>
+        <keyMapping columnObjectName="Script_View" columnName="DESCRIPTION"/>
+      </attribute>
+      <attribute id="CREATIONDATE" order="18">
+        <descriptions defaultDescription="CREATIONDATE"/>
+        <keyMapping columnObjectName="Script_View" columnName="CREATIONDATE"/>
+      </attribute>
+      <attribute id="MPTPLANNEDDATE" order="19">
+        <descriptions defaultDescription="MPTPLANNEDDATE"/>
+        <keyMapping columnObjectName="Script_View" columnName="MPTPLANNEDDATE"/>
+      </attribute>
+      <attribute id="ISUSERCOMMENTSUPPLIED" order="20">
+        <descriptions defaultDescription="ISUSERCOMMENTSUPPLIED"/>
+        <keyMapping columnObjectName="Script_View" columnName="ISUSERCOMMENTSUPPLIED"/>
+      </attribute>
+      <attribute id="ISADMINCOMMENTSUPPLIED" order="21">
+        <descriptions defaultDescription="ISADMINCOMMENTSUPPLIED"/>
+        <keyMapping columnObjectName="Script_View" columnName="ISADMINCOMMENTSUPPLIED"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="HISTORYNO" order="2" aggregationType="max" measureType="simple">
+        <descriptions defaultDescription="MAXHISTORY"/>
+        <measureMapping columnObjectName="Script_View" columnName="HISTORYNO"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

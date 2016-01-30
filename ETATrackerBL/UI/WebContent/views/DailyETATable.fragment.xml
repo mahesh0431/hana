@@ -1,0 +1,72 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<Table id = "tMultiCreate12"
+				   class=""
+				   select="onLineSelect"
+				   items="{Results}"
+				   updateFinished="onTableLoaded">
+				   
+		<headerToolbar>
+			<Toolbar>
+				<Title text="Incidents" level="H2"/>
+				<ToolbarSpacer></ToolbarSpacer>
+				<Button	icon="sap-icon://download" press="onDataExport" />
+			</Toolbar>
+		</headerToolbar>
+				<columns
+					class="">
+					<Column
+						width="360px">
+						<Text text="Incident / year"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Component"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Processor"/>
+					</Column>
+					<Column
+						width="60px"
+						demandPopin="true">
+						<Text text="Priority"/>
+					</Column>
+					<Column
+						width="120px"
+						demandPopin="true">
+						<Text text="Status"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Creation Date"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="MPT Planned Date"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem
+						type="Navigation"
+						press="onListItemPressed">
+						<cells>
+							<ObjectIdentifier
+								title = "{INCIDENT} / {YEAR}"
+								text  = "{DESCRIPTION}"/>
+							<Text text = "{COMPONENT}"/>
+							<Text text = "{PROCESSOR}"/>
+							<Text text = "{PRIORITY}"/>
+							<Text text = "{STATUS}"/>
+							<Text text = "{path: 'CREATIONDATE',
+				        					formatter: '.formatDate'}"/>
+							<Text text = "{path: 'MPTPLANNEDDATE',
+				        					formatter: '.formatDate'}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+</core:FragmentDefinition>

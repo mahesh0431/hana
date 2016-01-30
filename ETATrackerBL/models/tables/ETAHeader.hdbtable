@@ -1,0 +1,23 @@
+table.schemaName 	= "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8";
+table.tableType		= COLUMNSTORE;
+table.description	= "ETA Header Table"; 
+
+table.columns =
+[
+
+	{name = "INCIDENTNO"; 		sqlType = NVARCHAR; 	nullable = false;	length = 30;},
+	{name = "INCIDENT"; 		sqlType = NVARCHAR; 	length = 10;},
+	{name = "YEAR"; 			sqlType = NVARCHAR; 	length = 4;},
+	{name = "PROCESSOR"; 		sqlType = NVARCHAR; 	length = 40;},
+	{name = "COMPONENT"; 		sqlType = NVARCHAR; 	length = 40;},
+	{name = "PRIORITY"; 		sqlType = NVARCHAR; 	length = 10;},
+	{name = "STATUS"; 			sqlType = NVARCHAR; 	length = 30;},
+	{name = "SYSTEMID"; 		sqlType = NVARCHAR; 	length = 5;},
+	{name = "DESCRIPTION"; 		sqlType = NVARCHAR;		length = 80;},
+	{name = "CREATIONDATE"; 	sqlType = SECONDDATE; 	},
+	{name = "MPTPLANNEDDATE";	sqlType = SECONDDATE; 	}
+];
+
+	
+
+table.primaryKey.pkcolumns = ["INCIDENTNO"];

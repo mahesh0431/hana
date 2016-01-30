@@ -1,0 +1,21 @@
+role c5208507trial.hanainstance.ETATracker.ETATrackerBL.roles::ETARoleAdmin
+{
+catalog sql object "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHeader": SELECT, UPDATE, INSERT;
+catalog sql object "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory": SELECT, UPDATE, INSERT;
+catalog sql object "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAProject": SELECT, UPDATE, INSERT;
+catalog sql object "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAComponent": SELECT, UPDATE, INSERT;
+catalog sql object "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAUserProject": SELECT, UPDATE, INSERT;
+sql object c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETACreate: EXECUTE;
+sql object c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETAUpdate: EXECUTE;
+sql object c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETAPostDay: EXECUTE;
+sql object c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETAUserProject: EXECUTE;
+sql object c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::UserRead: EXECUTE;
+sql object c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::checkOld: EXECUTE;
+sql object c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.views::ETAData: SELECT;
+sql object c5208507trial.hanainstance.ETATracker.ETATrackerBL.models::ETAData: SELECT;
+sql object c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.views::ETAUserProject: SELECT;
+
+
+application privilege: "c5208507trial.hanainstance.ETATracker.ETATrackerBL::SuperUser";
+
+}

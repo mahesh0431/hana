@@ -1,0 +1,29 @@
+PROCEDURE "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::checkOld" ( 
+	IN date NVARCHAR(10),
+	OUT exists NVARCHAR(1) 
+) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	--DEFAULT SCHEMA <default_schema_name>
+	READS SQL DATA AS
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+ 
+ declare lv_date seconddate;
+ 
+ lv_date := :date;
+ 
+ history = select "INCIDENTNO", MAX("HISTORYNO") AS "HISTORYNO"
+			   from "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory" 
+			  where "ETADAYDATE" not between lv_date and ADD_SECONDS(ADD_DAYS(lv_date, 1),-01)
+			    and "ETADAY" <> 'X'
+		   group by "INCIDENTNO";
+if ::ROWCOUNT is not null then
+
+	exists := 'X';
+	
+end if;
+		   
+END;

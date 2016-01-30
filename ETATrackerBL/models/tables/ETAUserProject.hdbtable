@@ -1,0 +1,13 @@
+table.schemaName 	= "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8";
+table.tableType		= COLUMNSTORE;
+table.description	= "ETA User Project Details"; 
+
+table.columns =
+[
+	{name = "USERID"; 		sqlType = NVARCHAR; 	length = 30; 	nullable = false;},
+	{name = "PROJECTID"; 	sqlType = NVARCHAR; 	length = 40;    nullable = false;}
+];
+
+	
+
+table.primaryKey.pkcolumns = ["USERID","PROJECTID"];

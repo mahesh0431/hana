@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ETAUserProject" applyPrivilegeType="NONE" checkAnalyticPrivileges="false" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="SCRIPT_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" scriptParametersCaseSensitive="true">
+  <descriptions defaultDescription="ETAUserProject"/>
+  <localVariables/>
+  <variableMappings/>
+  <dataSources/>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:SqlScriptView" id="Script_View">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute datatype="VARCHAR" id="USERID" length="30"/>
+        <viewAttribute datatype="VARCHAR" id="PROJECTID" length="40"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <definition> 
+ /********* Begin Procedure Script ************/ 
+ BEGIN 
+ 	call &quot;NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::UserRead&quot; (user);
+ 	 /*user = select CURRENT_USER AS &quot;USERID&quot; from dummy;*/
+ 	 var_out =  
+			select b.&quot;USERID&quot;, a.&quot;PROJECTID&quot;
+			   from &quot;NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8&quot;.&quot;c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAUserProject&quot; as a
+			   inner JOIN :user as b
+			   on a.&quot;USERID&quot; = b.&quot;USERID&quot;;
+			   
+END /********* End Procedure Script ************/</definition>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Script_View">
+    <descriptions/>
+    <attributes>
+      <attribute id="USERID" order="1">
+        <descriptions defaultDescription="USERID"/>
+        <keyMapping columnObjectName="Script_View" columnName="USERID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="PROJECTID" order="2" aggregationType="count" measureType="simple">
+        <descriptions defaultDescription="PROJECTID"/>
+        <measureMapping columnObjectName="Script_View" columnName="PROJECTID"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

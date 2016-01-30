@@ -1,0 +1,44 @@
+service namespace "c5208507trial.hanainstance.ETATracker.ETATrackerBL.service.eta" { 
+
+// For Displaying daily wise ETA and Finalizing the ETA for that day
+   "c5208507trial.hanainstance.ETATracker.ETATrackerBL.models::ETAData" as "ETAData"
+   key ("INCIDENTNO","HISTORYNO")
+   parameters via key and entity
+   update using "c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETAPostDay"; 
+ 
+// For single history record entry reading
+   "c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.views::ETAData" as "ETADataSingle"
+    key ("INCIDENTNO","HISTORYNO") navigates ("HistoryData" as "History");
+
+// For updating the History record   	
+   	"NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory" as "ETAUpdate"
+   	create using "c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETAUpdate";
+
+// Association to show history
+	association "HistoryData" principal "ETADataSingle"("INCIDENTNO") multiplicity "1" 
+							  dependent "ETAUpdate"("INCIDENTNO") multiplicity "*"; 
+
+// For uploading the ETA Daily Data   	
+   "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHeader" as "ETA"
+   create using "c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETACreate";	
+   
+// For creating the Project Details
+   "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAProject" as "Project"
+   	navigates ("ProjectComponents" as "ProjectComponents");
+   
+// For creating the Component Details
+   "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAComponent" as "Component";
+   
+// Association to show Components
+	association "ProjectComponents" principal "Project"("PROJECTID") multiplicity "1" 
+							  dependent "Component"("PROJECTID") multiplicity "*"; 
+// For User Project Registration
+   "c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.views::ETAUserProject" as "UserProject"
+   key ("USERID","PROJECTID")
+   navigates ("ProjectDescription" as "ProjectDescription")
+   create using "c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETAUserProject";
+
+// Association For User Project Description
+	association "ProjectDescription" principal "UserProject"("PROJECTID") multiplicity "1" 
+							  dependent "Project"("PROJECTID") multiplicity "1"; 
+}

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ETAData" applyPrivilegeType="NONE" checkAnalyticPrivileges="false" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <descriptions defaultDescription="ETAData"/>
+  <localVariables/>
+  <variableMappings/>
+  <dataSources>
+    <DataSource id="c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8" columnObjectName="c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory"/>
+    </DataSource>
+    <DataSource id="c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHeader" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8" columnObjectName="c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHeader"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="INCIDENTNO"/>
+        <viewAttribute id="USERCOMMENT"/>
+        <viewAttribute id="ADMINCOMMENT"/>
+        <viewAttribute id="HISTORYNO"/>
+        <viewAttribute id="ETACREATIONDATE"/>
+        <viewAttribute id="ETAUPDATIONDATE"/>
+        <viewAttribute id="ETAUPDATEDBY"/>
+        <viewAttribute id="TBD"/>
+        <viewAttribute id="ETACREATEDBY"/>
+        <viewAttribute id="ETA"/>
+        <viewAttribute id="NOTE"/>
+        <viewAttribute id="ETADAY"/>
+        <viewAttribute id="STATUS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory">
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCIDENTNO" source="INCIDENTNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USERCOMMENT" source="USERCOMMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADMINCOMMENT" source="ADMINCOMMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HISTORYNO" source="HISTORYNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETACREATIONDATE" source="ETACREATIONDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETAUPDATIONDATE" source="ETAUPDATIONDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETAUPDATEDBY" source="ETAUPDATEDBY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TBD" source="TBD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETACREATEDBY" source="ETACREATEDBY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETA" source="ETA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NOTE" source="NOTE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETADAY" source="ETADAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="INCIDENTNO"/>
+        <viewAttribute id="INCIDENT"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="PROCESSOR"/>
+        <viewAttribute id="COMPONENT"/>
+        <viewAttribute id="PRIORITY"/>
+        <viewAttribute id="STATUS"/>
+        <viewAttribute id="SYSTEMID"/>
+        <viewAttribute id="DESCRIPTION"/>
+        <viewAttribute id="CREATIONDATE"/>
+        <viewAttribute id="MPTPLANNEDDATE"/>
+        <viewAttribute id="USERCOMMENT"/>
+        <viewAttribute id="ADMINCOMMENT"/>
+        <viewAttribute id="HISTORYNO"/>
+        <viewAttribute id="ETACREATIONDATE"/>
+        <viewAttribute id="ETAUPDATIONDATE"/>
+        <viewAttribute id="ETAUPDATEDBY"/>
+        <viewAttribute id="TBD"/>
+        <viewAttribute id="ETACREATEDBY"/>
+        <viewAttribute id="ETA"/>
+        <viewAttribute id="NOTE"/>
+        <viewAttribute id="ETADAY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHeader">
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCIDENTNO" source="INCIDENTNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCIDENT" source="INCIDENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PROCESSOR" source="PROCESSOR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COMPONENT" source="COMPONENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRIORITY" source="PRIORITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SYSTEMID" source="SYSTEMID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATIONDATE" source="CREATIONDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MPTPLANNEDDATE" source="MPTPLANNEDDATE"/>
+      </input>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="USERCOMMENT" source="USERCOMMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADMINCOMMENT" source="ADMINCOMMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HISTORYNO" source="HISTORYNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETACREATIONDATE" source="ETACREATIONDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETAUPDATIONDATE" source="ETAUPDATIONDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETAUPDATEDBY" source="ETAUPDATEDBY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TBD" source="TBD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETACREATEDBY" source="ETACREATEDBY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETA" source="ETA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NOTE" source="NOTE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ETADAY" source="ETADAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCIDENTNO" source="INCIDENTNO"/>
+      </input>
+      <joinAttribute name="INCIDENTNO"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="INCIDENTNO" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="INCIDENTNO"/>
+        <keyMapping columnObjectName="Join_2" columnName="INCIDENTNO"/>
+      </attribute>
+      <attribute id="INCIDENT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="INCIDENT"/>
+        <keyMapping columnObjectName="Join_2" columnName="INCIDENT"/>
+      </attribute>
+      <attribute id="YEAR" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="YEAR"/>
+        <keyMapping columnObjectName="Join_2" columnName="YEAR"/>
+      </attribute>
+      <attribute id="PROCESSOR" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PROCESSOR"/>
+        <keyMapping columnObjectName="Join_2" columnName="PROCESSOR"/>
+      </attribute>
+      <attribute id="COMPONENT" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COMPONENT"/>
+        <keyMapping columnObjectName="Join_2" columnName="COMPONENT"/>
+      </attribute>
+      <attribute id="PRIORITY" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRIORITY"/>
+        <keyMapping columnObjectName="Join_2" columnName="PRIORITY"/>
+      </attribute>
+      <attribute id="STATUS" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STATUS"/>
+        <keyMapping columnObjectName="Join_2" columnName="STATUS"/>
+      </attribute>
+      <attribute id="SYSTEMID" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SYSTEMID"/>
+        <keyMapping columnObjectName="Join_2" columnName="SYSTEMID"/>
+      </attribute>
+      <attribute id="DESCRIPTION" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DESCRIPTION"/>
+        <keyMapping columnObjectName="Join_2" columnName="DESCRIPTION"/>
+      </attribute>
+      <attribute id="CREATIONDATE" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CREATIONDATE"/>
+        <keyMapping columnObjectName="Join_2" columnName="CREATIONDATE"/>
+      </attribute>
+      <attribute id="MPTPLANNEDDATE" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MPTPLANNEDDATE"/>
+        <keyMapping columnObjectName="Join_2" columnName="MPTPLANNEDDATE"/>
+      </attribute>
+      <attribute id="USERCOMMENT" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USERCOMMENT"/>
+        <keyMapping columnObjectName="Join_2" columnName="USERCOMMENT"/>
+      </attribute>
+      <attribute id="ADMINCOMMENT" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ADMINCOMMENT"/>
+        <keyMapping columnObjectName="Join_2" columnName="ADMINCOMMENT"/>
+      </attribute>
+      <attribute id="ETACREATIONDATE" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ETACREATIONDATE"/>
+        <keyMapping columnObjectName="Join_2" columnName="ETACREATIONDATE"/>
+      </attribute>
+      <attribute id="ETAUPDATIONDATE" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ETAUPDATIONDATE"/>
+        <keyMapping columnObjectName="Join_2" columnName="ETAUPDATIONDATE"/>
+      </attribute>
+      <attribute id="ETAUPDATEDBY" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ETAUPDATEDBY"/>
+        <keyMapping columnObjectName="Join_2" columnName="ETAUPDATEDBY"/>
+      </attribute>
+      <attribute id="TBD" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TBD"/>
+        <keyMapping columnObjectName="Join_2" columnName="TBD"/>
+      </attribute>
+      <attribute id="ETACREATEDBY" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ETACREATEDBY"/>
+        <keyMapping columnObjectName="Join_2" columnName="ETACREATEDBY"/>
+      </attribute>
+      <attribute id="ETA" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ETA"/>
+        <keyMapping columnObjectName="Join_2" columnName="ETA"/>
+      </attribute>
+      <attribute id="ETADAY" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ETADAY"/>
+        <keyMapping columnObjectName="Join_2" columnName="ETADAY"/>
+      </attribute>
+      <attribute id="NOTE" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NOTE"/>
+        <keyMapping columnObjectName="Join_2" columnName="NOTE"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="HISTORYNO" key="true" order="14" aggregationType="max" measureType="simple">
+        <descriptions defaultDescription="HISTORYNO"/>
+        <measureMapping columnObjectName="Join_2" columnName="HISTORYNO"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="40" y="260"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="40" y="154"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

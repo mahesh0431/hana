@@ -1,0 +1,64 @@
+<core:View 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	controllerName="sap.dev.user.controllers.DailyETA" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Daily ETA">
+		<content>
+		<l:Grid
+			defaultSpan="L12 M12 S12"
+			width="auto">
+			<l:content>
+			<f:Form
+				minWidth="1024"
+				maxContainerCols="2"	
+				editable="true">
+				<f:title>
+					<core:Title text="ETA Date" />
+				</f:title> 
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanL="5"
+						labelSpanM="5"
+						emptySpanL="4"
+						emptySpanM="4"
+						columnsL="1"
+						columnsM="1" />
+				</f:layout>
+				<f:formContainers>
+				<f:FormContainer>
+				<f:FormElement label = "Select ETA Date">
+				<f:fields >
+				<DateTimeInput id="date12"
+					type="Date"
+					placeholder="Enter ETA Date"
+					class="sapUiSmallMarginBottom" 
+					change="onDateChange"/>
+				</f:fields>
+				</f:FormElement>
+				</f:FormContainer>
+				
+				</f:formContainers>
+			</f:Form>
+			</l:content>
+		</l:Grid>
+		<l:Grid
+			defaultSpan="L12 M12 S12"
+			width="auto">
+		<core:Fragment 
+						fragmentName = "sap.dev.user.views.DailyETATable"
+						type		 = "XML"/>
+		</l:Grid>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text="Finalize ETA" press="handlePostETA" />
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>

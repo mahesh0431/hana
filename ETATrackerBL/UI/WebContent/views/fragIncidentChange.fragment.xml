@@ -1,0 +1,49 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+		<f:SimpleForm 
+				class="editableForm"
+				columnsL="1" 
+				columnsM="1" 
+				editable=	"true"
+				emptySpanL="4" 
+				emptySpanM="4"
+				labelSpanL="3" 
+				labelSpanM="3" 
+				layout="ResponsiveGridLayout" 
+				maxContainerCols="2"
+				title="Comments">
+				<f:content>
+					<Label text = "Is TBD?"/>
+					<CheckBox  
+						select="onTBD"
+						selected="{path:'TBD'}"/>
+						
+					<Label text="ETA Date"/>
+					<!-- 	
+					<DateTimeInput 
+						id="DataTimeInput1"
+						type="Date"
+						value="{path: 'ETA',
+				       			formatter: '.formatDate'}"
+						width="50%"
+						change="onDateChange"/>  -->
+						
+					<DatePicker 
+						id="DataTimeInput1"
+						dateValue="{path: 'ETA'}"/>
+					<Label text="User Comments"/>
+					<TextArea
+						id="tarea1"
+						value="{USERCOMMENT}">
+					</TextArea>
+					<Label  text="Admin Comments"/>
+					<TextArea
+						id="tarea2"
+						value="{ADMINCOMMENT}">
+					</TextArea>
+				</f:content>
+			</f:SimpleForm>
+</core:FragmentDefinition>

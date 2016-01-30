@@ -1,0 +1,27 @@
+PROCEDURE "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.procedures::ETAPostDay" (
+	IN new "_SYS_BIC"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models::dataETA.procedures.ETADay",	
+	IN old "_SYS_BIC"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models::dataETA.procedures.ETADay",
+	OUT error "_SYS_BIC"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models::dataETA.procedures.errors"
+ ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER AS
+	--DEFAULT SCHEMA <default_schema_name>
+	--READS SQL DATA AS
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+ 
+ 	/*Logic to update history record*/
+
+ 	upsert "NEO_4LG8X92UE5ZQ7FUH2WD1D8SH8"."c5208507trial.hanainstance.ETATracker.ETATrackerBL.models.tables::ETAHistory"
+ 			("INCIDENTNO","HISTORYNO", "ETADAY", "ETADAYDATE")
+ 		select "INCIDENTNO", "HISTORYNO", "ETADAY", NOW() as "ETADAYDATE" from :new ;
+ 		
+ 	/*if ::ROWCOUNT is not null then*/
+ 	if 1 = 2 then
+  		error = select 500 as http_status_code,
+ 				'Data Not Saved'  error_message,
+ 				'Data is not Saved!! please contact Adminstrator' as detail from dummy;
+ 	end if;
+END;
