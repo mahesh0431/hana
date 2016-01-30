@@ -1,0 +1,112 @@
+<core:View 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m"
+	controllerName="sap.dev.user.controllers.IncidentView" 
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:suite="sap.suite.ui.commons"
+	xmlns:l="sap.ui.layout"
+				xmlns:f="sap.ui.layout.form">
+	<Page title="Incident View"
+	showNavButton = "true"
+	class		  =	"sapUiFioriObjectPage"
+	navButtonPress = "onBack">
+	<ObjectHeader
+		id="objHeader1"
+		responsive="true"
+		intro="{DESCRIPTION}"
+		title="{INCIDENT} / {YEAR}"
+		fullScreenOptimized = "false">
+		<statuses>
+			<ObjectStatus
+				title="Priority"
+				text="{PRIORITY}"/>
+			<ObjectStatus
+				text="{STATUS}"
+				state="Warning"/>
+		</statuses>
+		<attributes>
+			<!--  
+				<ObjectAttribute title="Creation Date"
+					text="{path: 'CREATIONDATE',
+				       type: 'sap.ui.model.type.Date',
+				       formatOptions: {
+				       pattern: 'dd/MM/yyy'}}" />
+				<ObjectAttribute title="MPT Planned Date"
+					text="{path: 'MPTPLANNEDDATE',
+				       type: 'sap.ui.model.type.Date',
+				       formatOptions: {
+				       pattern: 'dd/MM/yyy'}}" />
+			-->
+		</attributes>
+	</ObjectHeader>
+	
+	<l:Grid defaultSpan = "L12 M12 S12"
+		width= "auto">
+			<Panel
+			backgroundDesign = "Transparent"
+			width = "100%">
+			<f:SimpleForm 
+				class="editableForm "
+				columnsL="1" 
+				columnsM="1" 
+				editable=	"false"
+				emptySpanL="4" 
+				emptySpanM="4"
+				labelSpanL="3" 
+				labelSpanM="3" 
+				layout="ResponsiveGridLayout"
+				title="General Information">
+				<f:content
+					class = "sapUiMediumMargin">
+					<Label text="Processor"/>
+					<Text  text="{PROCESSOR}"/>
+					
+					<Label text="Component"/>
+					<Text  text="{COMPONENT}"/>
+					
+					<Label text="System ID"/>
+					<Text  text="{SYSTEMID}"/>
+					
+					<Label text="Creation Date"/>
+					<Text  text="{path: 'CREATIONDATE',
+											formatter: '.formatDate' 	}" />
+				       
+					<Label text="MPT Planned Date"/>
+					<Text  text="{path: 'MPTPLANNEDDATE',
+											formatter: '.formatDate' 	}"/>
+				       
+				    <Label visible="false" text="ETA Creation Date"/>
+					<Text  visible="false" text="{path: 'ETACREATIONDATE',
+				       type: 'sap.ui.model.type.Date',
+				       formatOptions: {
+				       pattern: 'dd/MM/yyy'}}"/>
+				</f:content>
+			</f:SimpleForm>
+			</Panel>
+			<Panel
+				backgroundDesign = "Transparent"
+				id = "IncidentsDispChange"> 		
+			</Panel>			
+			
+			<Panel 
+				headerText = "Incident History"
+				expandable = "true">
+				<core:Fragment 
+						fragmentName = "sap.dev.user.views.ETAHistory"
+						type		 = "XML"/>
+			</Panel>
+			</l:Grid>
+			
+	<footer>
+			<Bar>
+				<contentRight>
+					<Button id="open" text = "Open Incident" press="handleOpenIncident"/>
+					<Button id="edit" icon="sap-icon://edit" text="Edit" visible="{edit>/editVisibility}" press="handleEditPress" />
+					<Button id="save" text="Save" type="Emphasized" visible="{edit>/isedit}" press="handleSavePress" />
+					<Button id="cancel" text="Cancel" visible="{edit>/isedit}" press="handleEditPress" />
+				</contentRight>
+			</Bar>
+		</footer>
+</Page>
+</core:View>

@@ -1,0 +1,99 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns:v="sap.ui.comp.variants">
+	<Table id = "tMultiCreate12"
+				   class=""
+				   select="onLineSelect"
+				   items="{Results}"
+				   updateFinished="onTableLoaded">
+				   
+		<headerToolbar>
+			<Toolbar>
+				<Title text="Incidents" level="H2"/>
+				<ToolbarSeparator>
+				</ToolbarSeparator>
+				<v:VariantManagement select="onSelectVariant" enabled="true">
+					<v:variantItems>
+						<v:VariantItem text="Admin ETA" key="ADMIN" global="true" readOnly="true" accessOptions="R"/>
+					</v:variantItems>
+				</v:VariantManagement>
+				
+				<ToolbarSpacer></ToolbarSpacer>
+				<Button	icon="sap-icon://download" press="onDataExport" />
+			</Toolbar>
+		</headerToolbar>
+				<columns
+					class="">
+					<Column
+						width="360px">
+						<Text text="Incident / year"/>
+					</Column>
+					<Column
+						id = "TCCMP"
+						demandPopin="true">
+						<Text text="Component"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Processor"/>
+					</Column>
+					<Column
+						id = "TCPRI"
+						width="60px"
+						demandPopin="true">
+						<Text text="Priority"/>
+					</Column>
+					<Column
+						width="120px"
+						demandPopin="true">
+						<Text text="Status"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Creation Date"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="MPT Planned Date"/>
+					</Column>
+					<Column
+						id = "TCISUCS"
+						demandPopin="true"
+						width="80px"
+						visible = "false">
+						<Text text="User Comment"/>
+					</Column>
+					<Column
+						id = "TCISACS"
+						demandPopin="false"
+						width="80px"
+						visible = "false">
+						<Text text="Admin Comment"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem
+						type="Navigation"
+						press="onListItemPressed">
+						<cells>
+							<ObjectIdentifier
+								title = "{INCIDENT} / {YEAR}"
+								text  = "{DESCRIPTION}"/>
+							<Text text = "{COMPONENT}"/>
+							<Text text = "{PROCESSOR}"/>
+							<Text text = "{PRIORITY}"/>
+							<Text text = "{STATUS}"/>
+							<Text text = "{path: 'CREATIONDATE',
+				        					formatter: '.formatDate'}"/>
+							<Text text = "{path: 'MPTPLANNEDDATE',
+				        					formatter: '.formatDate'}"/>
+				        	<Text text = "{ISUSERCOMMENTSUPPLIED}"/>
+							<Text text = "{ISADMINCOMMENTSUPPLIED}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+</core:FragmentDefinition>

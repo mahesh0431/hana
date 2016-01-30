@@ -1,0 +1,77 @@
+<core:View 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m"
+	xmlns:unf="sap.ui.unified"
+		controllerName="sap.dev.user.controllers.ETACreation" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="ETA Uploder">
+		<content>
+			
+			<Table id = "tMultiCreate"
+				   class=""
+				   items="{jsonModel>/ETAData}">
+				<headerToolbar
+					class="sapUiNoMargin">
+				</headerToolbar>
+				<columns
+					class="sapUiNoMargin">
+					<Column
+						width="340px">
+						<Text text="Incident / year"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Component"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Processor"/>
+					</Column>
+					<Column
+						width="60px"
+						demandPopin="true">
+						<Text text="Priority"/>
+					</Column>
+					<Column
+						width="120px"
+						demandPopin="true">
+						<Text text="Status"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Creation Date"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="MPT Planned Date"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier
+								title = "{jsonModel>INCIDENT} / {jsonModel>YEAR}"
+								text  = "{jsonModel>DESCRIPTION}"/>
+							
+							<Text text = "{jsonModel>COMPONENT}"/>
+							<Text text = "{jsonModel>PROCESSOR}"/>
+							<Text text = "{jsonModel>PRIORITY}"/>
+							<Text text = "{jsonModel>STATUS}"/>
+							<Text text = "{jsonModel>CREATIONDATE}"/>
+							<Text text = "{jsonModel>MPTPLANNEDDATE}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button id = 'LOADETA' text="Load ETA" press="onLoad" />
+					<Button id = 'SAVEETA' visible = 'false' text="Save ETA" type="Emphasized" press="onSave" />
+					<Button id = 'CANCELETA' visible = 'false' text="Cancel" type="Reject" press="onSave" />
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>

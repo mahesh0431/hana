@@ -1,0 +1,51 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+		controllerName="sap.dev.user.controllers.Home" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Home">
+		<content>
+			<TileContainer
+			id="container"
+			tileDelete="handleTileDelete">
+			<StandardTile
+				icon="sap-icon://upload-to-cloud"
+				type="Monitor"
+				title="ETA Uploader : Uploading ETA from Excel to HANA"
+				press="handlePress">
+				<customData>
+          			<core:CustomData key	=	"ref"
+            						 value	=	"uploadETA" />
+        		</customData>
+			</StandardTile>
+			<StandardTile
+				icon="sap-icon://inbox"
+				type="Monitor"
+				title="Daily ETA : For updating/displaying ETA"
+				press="handlePress">
+				<customData>
+          			<core:CustomData key	=	"ref"
+            						 value	=	"dailyETA" />
+        		</customData>
+			</StandardTile>
+			<StandardTile
+				icon="sap-icon://sys-add"
+				type="Monitor"
+				title="Register Project : Register for a project in order to view/update the Daily ETA"
+				press="handlePress">
+				<customData>
+          			<core:CustomData key	=	"ref"
+            						 value	=	"registerProject" />
+        		</customData>
+			</StandardTile>
+			<StandardTile
+				icon="sap-icon://create"
+				type="Monitor"
+				title="Project Maintainence : Create/update project along with it components"
+				press="handlePress">
+				<customData>
+          			<core:CustomData key	=	"ref"
+            						 value	=	"createProject" />
+        		</customData>
+			</StandardTile>
+		</TileContainer>
+		</content>
+	</Page>
+</core:View>

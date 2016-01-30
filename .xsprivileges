@@ -1,0 +1,14 @@
+{
+	"privileges"	:	[
+		{
+			"name"			:	"Basic",
+			"description"	:	"Basic user privileges"	
+		},
+		
+		{
+			"name"			:	"Admin",
+			"description"	:	"Administration privileges"	
+		}	
+		
+	]
+}

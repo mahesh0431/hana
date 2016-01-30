@@ -1,0 +1,154 @@
+{
+	"_version"	:	"1.1.0",
+	
+	"sap.app"	:	{
+		"_version"		:	"1.1.0",
+		"id"			:	"sap.dev.user",
+		"type"			:	"application",
+		"i18n"			:	"i18n/i18n.properties",
+		"title"			:	"ETA Tool",
+		"description"	:	"Application to track ETA",
+		"applicationVersion"
+						:	{
+			"version"		:	"1.0.1"
+		}		
+	},
+	
+	"sap.ui"	:	{
+		"_version"		:	"1.1.0",
+		"technology"	:	"UI5",
+		"deviceTypes"	:	{
+			"desktop"		: true,
+			"tablet"		: true,
+			"phone"			: true
+		},
+		"supportedThemes"
+						:	["sap_bluecrystal"]
+	},
+	
+	"sap.ui5"	:	{
+		"_version"		:	"1.1.0",
+		"config"		:	{
+			"user"			:	"https://s9hanaxs.hanatrial.ondemand.com/c5208507trial/hanainstance/ETATracker/ETATrackerBL/services/eta.xsodata"
+		},
+		"rootView"		:	"sap.dev.user.views.Container",
+		"contentDensities"
+						:	{
+			"compact"		:	true,
+			"cozy"			:	true
+		},
+		"dependencies"	:	{
+			"miniUI5Version":	"1.30",
+			"libs"			:	{
+				"sap.m"			:	{}
+			}
+		},
+		"routing"		:	{
+			"config"		:	{
+				"routerClass"	:	"sap.m.routing.Router",
+				"viewType"		:	"XML",
+				"viewPath"		:	"sap.dev.user.views",
+				"controlId"		:	"container",
+				"controlAggregation"
+								:	"pages"
+			},
+			"routes"		:	[
+				{
+					"pattern"		:	"",
+					"name"			:	"Home",
+					"target"		:	"Home"
+				},
+				{
+					"pattern"		:	"ETACreate",
+					"name"			:	"ETACreate",
+					"target"		:	"ETACreate"
+				},
+				{
+					"pattern"		: "dailyETA",
+					"name"			: "DailyETA",
+					"target"		: "DailyETA"
+				},
+				{
+					"pattern"		: "DailyETA/{incidentno},{historyno}",
+					"name"			: "incidentView",
+					"target"		: "incidentView"
+				},
+				{
+					"pattern"		: "Project",
+					"name"			: "Project",
+					"target"		: "Project"
+				},
+				{
+					"pattern"		: "Project/ProjectCreate",
+					"name"			: "ProjectCreate",
+					"target"		: "ProjectCreate"
+				},
+				{
+					"pattern"		: "Project/{projectId}",
+					"name"			: "ComponentView",
+					"target"		: "ComponentView"
+				},
+				{
+					"pattern"		: "Project/{projectId}/ComponentCreate",
+					"name"			: "ComponentCreate",
+					"target"		: "ComponentCreate"
+				},
+				{
+					"pattern"		: "UserProjectRegister",
+					"name"			: "UserProjectRegister",
+					"target"		: "UserProjectRegister"
+				},
+				{
+					"pattern"		: "UserProjectAdd",
+					"name"			: "UserProjectAdd",
+					"target"		: "UserProjectAdd"
+				}
+			],
+			"targets"		:	{
+				"Home"	:	{
+					"viewName"		:	"Home",
+					"viewLevel" 	: 	1
+				},
+				"ETACreate"		:	{
+					"viewName"		:	"ETACreation",
+					"viewLevel" 	: 	1
+				},
+				"DailyETA"	:	{
+					"viewName"		:	"DailyETA",
+					"viewLevel" 	: 	1
+				},
+				"incidentView": {
+					"viewName"		:	"IncidentView",
+					"viewLevel" 	: 	2
+				},
+				"Project": {
+					"viewName"		:   "ProjectView",
+					"viewLevel"		:	1
+				},
+				"ProjectCreate": {
+					"viewName"		:   "ProjectCreate",
+					"viewLevel"		:	2
+				},
+				"ComponentView": {
+					"viewName"		:   "ComponentView",
+					"viewLevel"		:	2
+				},
+				
+				"ComponentCreate": {
+					"viewName"		:   "ComponentCreate",
+					"viewLevel"		:	3
+				},
+				
+				"UserProjectRegister": {
+					"viewName"		:   "UserProjectView",
+					"viewLevel"		:	2
+				},
+				
+				"UserProjectAdd": {
+					"viewName"		:   "UserProjectAdd",
+					"viewLevel"		:	2
+				}
+			}
+		}
+	}
+}

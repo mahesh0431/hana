@@ -1,0 +1,43 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+		controllerName="sap.dev.user.controllers.ComponentView" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Projects Maintenance">
+		<content>
+			<Panel
+				backgroundDesign = "Transparent">
+			<Table id = "tableComponents"
+				   class=""
+				   items="{ProjectComponents}"
+				   updateFinished="handleTableLoaded">
+				<columns
+					class="">
+					<Column>
+						<Text text="Component ID"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Description"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem
+						type="Navigation"
+						press="onListItemPressed">
+						<cells>
+							<Text text = "{COMPONENTID}"/>
+							<Text text = "{DESCRIPTION}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			</Panel>
+		</content>
+		
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text="Add Components" press="handleAddComponents" />
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>	

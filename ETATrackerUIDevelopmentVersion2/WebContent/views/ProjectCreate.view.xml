@@ -1,0 +1,48 @@
+<core:View 
+		xmlns:core="sap.ui.core" 
+		xmlns:mvc="sap.ui.core.mvc" 
+		xmlns="sap.m"
+		controllerName="sap.dev.user.controllers.ProjectCreate" 
+		xmlns:l="sap.ui.layout"
+		xmlns:f="sap.ui.layout.form"
+		xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Project Creation">
+		<content>
+			<Panel
+			backgroundDesign = "Transparent">
+			<f:SimpleForm 
+				class="editableForm"
+				columnsL="1" 
+				columnsM="1" 
+				editable=	"true"
+				emptySpanL="4" 
+				emptySpanM="4"
+				labelSpanL="3" 
+				labelSpanM="3" 
+				layout="ResponsiveGridLayout" 
+				maxContainerCols="2"
+				title="Fill the Details">
+				<f:content>
+					<Label  text="Project ID"/>
+					<Input
+						id = "inputProjectID"
+						width = "60%"
+						value="{projectDetails>/PROJECTID}">
+					</Input>
+					<Label  text="Description"/>
+					<TextArea
+						value="{projectDetails>/DESCRIPTION}">
+					</TextArea>
+				</f:content>
+			</f:SimpleForm>
+			</Panel>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text = "Save" press="handleSaveProject"/>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>

@@ -1,0 +1,95 @@
+<core:View 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	controllerName="sap.dev.user.controllers.DailyETA" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Daily ETA">
+	<headerContent>	
+		<Button icon="sap-icon://drop-down-list"/>
+	</headerContent>
+	<content>
+		<l:Grid
+			defaultSpan="L12 M12 S12"
+			width="auto">
+			<l:content>
+			<f:Form
+				minWidth="1024"
+				maxContainerCols="2"	
+				editable="true">
+				<f:title>
+					<core:Title text="ETA Date " />
+
+				</f:title> 
+				<f:layout>
+					<f:ResponsiveGridLayout
+						labelSpanL="4"
+						labelSpanM="4"
+						emptySpanL="4"
+						emptySpanM="4"
+						columnsL="1"
+						columnsM="1" />
+				</f:layout>
+				<f:formContainers>
+				<f:FormContainer>
+				<f:FormElement label = "Enter date">
+				<f:fields >
+				<DatePicker 
+						width="75%"
+						id="date12"
+						type="Date"
+						placeholder="ETA Date"
+						class="sapUiSmallMarginBottom" 
+						change="onDateChange"/>
+				
+<!--  			<DateTimeInput id="date12"
+					width="75%"
+					type="Date"
+					placeholder="ETA Date"
+					class="sapUiSmallMarginBottom" 
+					change="onDateChange"/>   -->
+					
+				</f:fields>
+				</f:FormElement>
+				
+				<f:FormElement label = "Project">
+				<Select
+					width="75%"
+					id="selectProjectID"
+					change="handleProjectChange"
+					items="{path:'/UserProject',
+				   			parameters: {expand: 'ProjectDescription'},
+				   			events:{
+				   				dataReceived: '._dataReceived'
+				   			}
+				   			}">
+					<core:Item key="{PROJECTID}" text="{PROJECTID} ('{ProjectDescription/DESCRIPTION}')" />
+				</Select>
+				</f:FormElement>
+				
+				</f:FormContainer>
+				
+				</f:formContainers>
+			</f:Form>
+			</l:content>
+		</l:Grid>
+		<l:Grid
+			defaultSpan="L12 M12 S12"
+			width="auto">
+		<core:Fragment 
+						fragmentName = "sap.dev.user.views.DailyETATable"
+						type		 = "XML"/>
+		</l:Grid>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text="Register Project" press="handleAddProject" />
+			<!-- 		<Button text="Finalize ETA" press="handlePostETA" />  -->
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>

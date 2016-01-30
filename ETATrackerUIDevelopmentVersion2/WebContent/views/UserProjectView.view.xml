@@ -1,0 +1,42 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+		controllerName="sap.dev.user.controllers.UserProjectView" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="User Project Registration">
+		<content>
+			<Panel
+				backgroundDesign = "Transparent">
+			<Table id = "tableUserProjects"
+				   class=""
+				   items="{path:'/UserProject',
+				   			parameters: {expand: 'ProjectDescription'}}"
+				   updateFinished="handleTableLoaded">
+				<columns
+					class="">
+					<Column>
+						<Text text="Project ID"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Description"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text = "{PROJECTID}"/>
+							<Text id = "textProductDescription" text = "{ProjectDescription/DESCRIPTION}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			</Panel>
+		</content>
+		
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text="Add Project" press="handleAddProject" />
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>	

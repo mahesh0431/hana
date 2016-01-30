@@ -1,0 +1,47 @@
+<core:View 
+		xmlns:core="sap.ui.core" 
+		xmlns:mvc="sap.ui.core.mvc" 
+		xmlns="sap.m"
+		controllerName="sap.dev.user.controllers.ComponentCreate" 
+		xmlns:l="sap.ui.layout"
+		xmlns:f="sap.ui.layout.form"
+		xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Project Creation">
+		<content>
+			<Panel
+			backgroundDesign = "Transparent">
+			<f:SimpleForm 
+				class="editableForm"
+				columnsL="1" 
+				columnsM="1" 
+				editable=	"true"
+				emptySpanL="4" 
+				emptySpanM="4"
+				labelSpanL="3" 
+				labelSpanM="3" 
+				layout="ResponsiveGridLayout" 
+				maxContainerCols="2"
+				title="Fill the Details">
+				<f:content>
+					<Label  text="Component ID"/>
+					<Input
+						width = "60%"
+						value="{componentDetails>/COMPONENTID}">
+					</Input>
+					<Label  text="Description"/>
+					<TextArea
+						value="{componentDetails>/DESCRIPTION}">
+					</TextArea>
+				</f:content>
+			</f:SimpleForm>
+			</Panel>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text = "Save" press="handleSaveComponent"/>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>

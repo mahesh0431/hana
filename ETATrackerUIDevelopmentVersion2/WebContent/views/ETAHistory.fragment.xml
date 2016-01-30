@@ -1,0 +1,55 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Table id = "tETAHistory"
+				   items="{History}"
+				   updateFinished="onTableLoaded">
+				<columns
+					class="">
+					<Column>
+						<Text text="History no"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="ETA Posted Date"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Status"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="ETA"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Note"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="User Comment"/>
+					</Column>
+					<Column
+						demandPopin="true">
+						<Text text="Admin Comment"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier
+								title = "{HISTORYNO}"/>
+							<Text text = "{
+										path: 'ETADAYDATE',
+										formatter:'.formatDate'}"/>
+							<Text text = "{STATUS}"/>
+							<Text text = "{path: 'ETA',
+										formatter:'.formatDate'}"/>
+							<Text text = "{NOTE}"/>
+							<Text text = "{USERCOMMENT}"/>
+							<Text text = "{ADMINCOMMENT}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+</core:FragmentDefinition>
